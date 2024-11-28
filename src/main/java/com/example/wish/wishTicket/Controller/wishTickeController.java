@@ -3,16 +3,14 @@ package com.example.wish.wishTicket.Controller;
 
 import com.example.wish.wishTicket.Service.WishService;
 import com.example.wish.wishTicket.VO.RequestVO;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.example.wish.wishTicket.Entity.WishTicket;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class wishTickeController {
 
@@ -30,17 +28,13 @@ public class wishTickeController {
          return - TicketList Json 객체
      */
     @RequestMapping("/wishTicekList.do")
-    public List<WishTicket> selectWishTicketList(@RequestBody RequestVO requestVO) {
+    public List<WishTicket> selectWishTicketList(@RequestParam(defaultValue = "WAIT") String ticketStatus) {
         System.out.println("in");
 
-        if(requestVO != null) {
-            if ("all".equals(requestVO.getTicketStatus()))
+            if ("all".equals(ticketStatus))
                 return wishService.findAll();
             else
-                return wishService.selectWishTicekbyticketStatus(requestVO.getTicketStatus());
-        } else {
-            return new ArrayList<>();
-        }
+                return wishService.selectWishTicekbyticketStatus(ticketStatus);
     }
 
     /*
@@ -51,16 +45,12 @@ public class wishTickeController {
          return 숫자
      */
     @RequestMapping("/wishTicekListCount.do")
-    public long selectWishTicketListCount(@RequestBody RequestVO requestVO) {
+    public long selectWishTicketListCount(@RequestParam(defaultValue = "BEFORE") String ticketStatus){
         System.out.println("in");
-        if(requestVO != null) {
-            if ("all".equals(requestVO.getTicketStatus()))
+            if ("all".equals(ticketStatus))
                 return wishService.countAll();
             else
-                return wishService.countByTicketStatus(requestVO.getTicketStatus());
-        } else {
-            return 0;
-        }
+                return wishService.countByTicketStatus(ticketStatus);
     }
 
     /*
@@ -70,12 +60,18 @@ public class wishTickeController {
     commnet - comment
  */
     @RequestMapping("/insertTicket.do")
-    public void insertTicket(@RequestParam(defaultValue = "1") int count,
-                             @RequestParam(defaultValue = "") String comment) {
+    public Boolean insertTicket(@RequestParam(defaultValue = "1") int count,
+                             @RequestParam(defaultValue = "") String comment) throws Exception {
         int roop = count;
-        for (int i = 0; i < roop; i++) {
-            wishService.insertTicket(comment);
+        try {
+            for (int i = 0; i < roop; i++) {
+                wishService.insertTicket(comment);
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return true;
     }
 
 

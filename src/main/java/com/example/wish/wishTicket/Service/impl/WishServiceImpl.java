@@ -35,7 +35,7 @@ public class WishServiceImpl implements WishService {
     @Transactional
     public void insertTicket(String comment) {
         WishTicket newTicket = new WishTicket();
-        newTicket.setTicketStatus("WAIT");
+        newTicket.setTicketStatus("BEFORE");
         newTicket.setModifiedDate(LocalDateTime.now().toString());
         newTicket.setComment(comment);
         newTicket.setTicketId(formatString(hashUtil.generate12CharHashWithBase64(LocalDateTime.now().toString())));
