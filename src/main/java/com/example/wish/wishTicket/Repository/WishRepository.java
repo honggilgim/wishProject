@@ -1,7 +1,7 @@
 package com.example.wish.wishTicket.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.wish.wishTicket.VO.WishTicket;
+import com.example.wish.wishTicket.Entity.WishTicket;
 
 import java.util.List;
 

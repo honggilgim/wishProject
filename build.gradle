@@ -23,13 +23,27 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    manifest { // 빌드시 Main-Class 설정
+        attributes 'Main-Class': 'com.example.wish.WishApplication'
+    }
+}
+
+bootJar {
+    jar.enabled = true // 빌드시 jar 을 실행
+}
+
+processResources {
+    exclude 'META-INF/MANIFEST.MF'  // 중복되는 MANIFEST.MF 파일을 제외
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.1'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    // gradle 묶기
+    implementation("org.springframework.boot:spring-boot-gradle-plugin:3.4.0")
     compileOnly 'org.projectlombok:lombok'
-    compileOnly 'org.springframework.boot:spring-boot-devtools'
-    developmentOnly 'org.springframework.boot:spring-boot-devtooÍ›ls'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
