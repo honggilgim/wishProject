@@ -60,18 +60,18 @@ public class wishTickeController {
     commnet - comment
  */
     @RequestMapping("/insertTicket.do")
-    public Boolean insertTicket(@RequestParam(defaultValue = "1") int count,
+    public Boolean insertTicket(@RequestParam(defaultValue = "1") String count,
                              @RequestParam(defaultValue = "") String comment) throws Exception {
-        int roop = count;
+        int roop = Integer.parseInt(count);
         try {
             for (int i = 0; i < roop; i++) {
                 wishService.insertTicket(comment);
             }
-            return false;
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
 
 
