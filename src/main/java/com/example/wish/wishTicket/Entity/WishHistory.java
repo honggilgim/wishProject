@@ -16,6 +16,9 @@ public class WishHistory {
     @Column(name = "TICKET_SEQ", length = 7)
     private Long ticketSeq;
 
+    @Column(name = "CURRENT_STATE", length = 20)
+    private String currentState;
+
     // 처리 상태
     @Column(name = "PROCESS_STATUS", length = 20)
     private String processStatus;

@@ -1,22 +1,22 @@
 package com.example.wish.wishTicket.Controller;
 
 
+import com.example.wish.Enum.TicketStatus;
 import com.example.wish.wishTicket.Service.WishService;
 import com.example.wish.wishTicket.VO.RequestVO;
 import org.springframework.web.bind.annotation.*;
 import com.example.wish.wishTicket.Entity.WishTicket;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
-public class wishTickeController {
+public class wishTicketController {
 
     private final WishService wishService;
 
-    public wishTickeController(WishService wishService) {
+    public wishTicketController(WishService wishService) {
         this.wishService = wishService;
     }
 
@@ -31,7 +31,7 @@ public class wishTickeController {
     public List<WishTicket> selectWishTicketList(@RequestParam(defaultValue = "WAIT") String ticketStatus) {
         System.out.println("in");
 
-            if ("all".equals(ticketStatus))
+            if (TicketStatus.ALL.name().equals(ticketStatus))
                 return wishService.findAll();
             else
                 return wishService.selectWishTicekbyticketStatus(ticketStatus);
@@ -47,7 +47,7 @@ public class wishTickeController {
     @RequestMapping("/wishTicekListCount.do")
     public long selectWishTicketListCount(@RequestParam(defaultValue = "BEFORE") String ticketStatus){
         System.out.println("in");
-            if ("all".equals(ticketStatus))
+            if (TicketStatus.ALL.name().equals(ticketStatus))
                 return wishService.countAll();
             else
                 return wishService.countByTicketStatus(ticketStatus);
@@ -71,6 +71,50 @@ public class wishTickeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
+    }
+
+    /*
+        티켓 상태 수정
+        param : ticketStatus
+             1. seq - 티켓 순번 (고유값)
+             2. currentState - 현재값
+             3. processState - 진행값
+         return - True False
+     */
+    @RequestMapping("/updateTicket.do")
+    public boolean updateTicket(@ModelAttribute RequestVO requestVO) {
+        System.out.println("updateTicket");
+        try {
+            wishService.uodateTicket(requestVO);
+            System.out.println("Sucess");
+            return true;
+        } catch(Exception e){
+            e.printStackTrace();
+            System.out.println("Fail");
+        };
+        return false;
+    }
+
+
+    /*
+        티켓 삭제
+        param :
+             1. seq - 티켓 순번 (고유값)
+         return - True False
+     */
+    @RequestMapping("/deleteTicket.do")
+    public boolean deleteTicket(@RequestParam(name="seq") String seq) {
+        System.out.println("deleteTicket");
+        Long id = Long.parseLong(seq);
+        try {
+            wishService.deleteTicket(id);
+            System.out.println("Sucess");
+            return true;
+        } catch(Exception e){
+            e.printStackTrace();
+            System.out.println("Fail");
+        };
         return false;
     }
 
