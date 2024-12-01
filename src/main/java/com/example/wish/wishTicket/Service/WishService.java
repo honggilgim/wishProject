@@ -1,5 +1,6 @@
 package com.example.wish.wishTicket.Service;
 
+import com.example.wish.wishTicket.Entity.WishHistory;
 import com.example.wish.wishTicket.Entity.WishTicket;
 import com.example.wish.wishTicket.VO.RequestVO;
 
@@ -20,5 +21,9 @@ public interface WishService {
     public void uodateTicket(RequestVO requestVO);
 
     public void deleteTicket(Long seq);
+
+    public List<WishHistory> findHistoryAll();
+
+    public List<WishHistory> selectHistroyList(long id);
 
 }

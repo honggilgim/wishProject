@@ -2,6 +2,7 @@ package com.example.wish.wishTicket.Controller;
 
 
 import com.example.wish.Enum.TicketStatus;
+import com.example.wish.wishTicket.Entity.WishHistory;
 import com.example.wish.wishTicket.Service.WishService;
 import com.example.wish.wishTicket.VO.RequestVO;
 import org.springframework.web.bind.annotation.*;
@@ -116,6 +117,24 @@ public class wishTicketController {
             System.out.println("Fail");
         };
         return false;
+    }
+
+    /*
+    티켓 삭제
+    param :
+         1. seq - 티켓 순번 (고유값)
+     return - List<WishHistory>
+ */
+    @RequestMapping("/selectTicketHistory.do")
+    public List<WishHistory> selectTicketHistory(@RequestParam(defaultValue = "0",
+            name="seq") String seq) {
+        System.out.println("selectTicketHistory");
+        Long id = Long.parseLong(seq);
+        if(id == 0) {
+            return wishService.findHistoryAll();
+        } else {
+            return wishService.selectHistroyList(id);
+        }
     }
 
 

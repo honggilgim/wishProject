@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -112,5 +113,13 @@ public class WishServiceImpl implements WishService {
     public void deleteTicket(Long seq) {
         wishRepository.deleteById(seq);
         wishHistoryRepository.deleteByTicketSeq(seq);
+    }
+
+    public List<WishHistory> findHistoryAll() {
+        return wishHistoryRepository.findAll();
+    }
+
+    public List<WishHistory> selectHistroyList(long id) {
+        return wishHistoryRepository.findWishHistoryByTicketSeqOrderByProcessStatus(id);
     }
 }
