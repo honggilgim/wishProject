@@ -28,7 +28,7 @@ public class wishTicketController {
          return - TicketList Json 객체
      */
     @RequestMapping("/wishTicekList.do")
-    public List<WishTicket> selectWishTicketList(@RequestParam(defaultValue = "WAIT") String ticketStatus) {
+    public List<WishTicket> selectWishTicketList(@RequestParam(defaultValue = "WAIT", name = "ticketStatus") String ticketStatus) {
         System.out.println("in");
 
             if (TicketStatus.ALL.name().equals(ticketStatus))
@@ -45,7 +45,7 @@ public class wishTicketController {
          return 숫자
      */
     @RequestMapping("/wishTicekListCount.do")
-    public long selectWishTicketListCount(@RequestParam(defaultValue = "BEFORE") String ticketStatus){
+    public long selectWishTicketListCount(@RequestParam(defaultValue = "BEFORE" , name = "ticketStatus") String ticketStatus){
         System.out.println("in");
             if (TicketStatus.ALL.name().equals(ticketStatus))
                 return wishService.countAll();
@@ -60,8 +60,8 @@ public class wishTicketController {
     commnet - comment
  */
     @RequestMapping("/insertTicket.do")
-    public Boolean insertTicket(@RequestParam(defaultValue = "1") String count,
-                             @RequestParam(defaultValue = "") String comment) throws Exception {
+    public Boolean insertTicket(@RequestParam(defaultValue = "1", name = "count") String count,
+                             @RequestParam(defaultValue = "", name = "comment") String comment) throws Exception {
         int roop = Integer.parseInt(count);
         try {
             for (int i = 0; i < roop; i++) {
