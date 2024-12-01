@@ -1,5 +1,6 @@
-<<<<<<< HEAD
 # wishProject
-=======
-# test
->>>>>>> 473a74e (프로젝트 초기 생성 및 작업)
+# 환경
+서버 : spring boot
+java : 21
+DB : mariaDB
+front : react
