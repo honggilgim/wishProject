@@ -5,6 +5,8 @@ import com.example.wish.Enum.TicketStatus;
 import com.example.wish.wishTicket.Entity.WishHistory;
 import com.example.wish.wishTicket.Service.WishService;
 import com.example.wish.wishTicket.VO.RequestVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import com.example.wish.wishTicket.Entity.WishTicket;
 
@@ -21,6 +23,7 @@ public class wishTicketController {
         this.wishService = wishService;
     }
 
+    protected static final Logger logger = LoggerFactory.getLogger(wishTicketController.class);
     /*
         티켓 리스트 받아오기
         param : ticketStatus
@@ -129,6 +132,7 @@ public class wishTicketController {
     public List<WishHistory> selectTicketHistory(@RequestParam(defaultValue = "0",
             name="seq") String seq) {
         System.out.println("selectTicketHistory");
+        logger.info("test");
         Long id = Long.parseLong(seq);
         if(id == 0) {
             return wishService.findHistoryAll();
