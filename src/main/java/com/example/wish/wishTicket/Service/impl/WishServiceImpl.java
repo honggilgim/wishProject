@@ -120,6 +120,6 @@ public class WishServiceImpl implements WishService {
     }
 
     public List<WishHistory> selectHistroyList(long id) {
-        return wishHistoryRepository.findWishHistoryByTicketSeqOrderByProcessStatus(id);
+        return wishHistoryRepository.findWishHistoryByTicketSeqOrderByProcessStatusDesc(id);
     }
 }

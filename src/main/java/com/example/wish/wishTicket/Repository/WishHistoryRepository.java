@@ -9,5 +9,5 @@ public interface WishHistoryRepository  extends JpaRepository<WishHistory,Object
 
     void deleteByTicketSeq(Long ticketSeq);
 
-    List<WishHistory> findWishHistoryByTicketSeqOrderByProcessStatus(Long seq);
+    List<WishHistory> findWishHistoryByTicketSeqOrderByProcessStatusDesc(Long seq);
 }
